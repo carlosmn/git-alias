@@ -7,11 +7,8 @@ namespace gitalias
 {
 	class MainClass
 	{
-		public static void Main (string[] args)
+		public static void List(Configuration cfg)
 		{
-			var repo = new Repository(".");
-			var cfg = repo.Config;
-
 			var aliases = new List<KeyValuePair<string,string>>();
 			var prefix = "alias.";
 
@@ -26,7 +23,18 @@ namespace gitalias
 			var width = aliases.Select(p => p.Key.Length).Max();
 			foreach (var entry in aliases)
 				Console.WriteLine("{0} = {1}", entry.Key.PadRight(width), entry.Value);
+		}
 
+		public static void Main (string[] args)
+		{
+			var repo = new Repository(".");
+			var cfg = repo.Config;
+
+			switch (args.Length) {
+			case 0:
+				List(cfg);
+				break;
+			}
 		}
 	}
 }
