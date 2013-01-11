@@ -42,7 +42,8 @@ namespace gitalias
 
 		public static void Main (string[] args)
 		{
-			using (var repo = new Repository("."))
+			var path = Repository.Discover(".");
+			using (var repo = new Repository(path))
 			{
 				var cfg = repo.Config;
 
