@@ -28,11 +28,11 @@ namespace gitalias
 
 		public static void ListOne(Configuration cfg, string name)
 		{
-			var alias= cfg.Get<string>(String.Concat(prefix, name), null);
+			var alias= cfg.Get<string>(String.Concat(prefix, name));
 			if (alias == null)
 				Console.Error.WriteLine("No such alias '{0}'", name);
 			else
-				Console.WriteLine("{0} = {1}", name, alias);
+				Console.WriteLine("{0} = {1}", name, alias.Value);
 		}
 
 		public static void Set(Configuration allcfg, string name, string value)
