@@ -42,19 +42,21 @@ namespace gitalias
 
 		public static void Main (string[] args)
 		{
-			var repo = new Repository(".");
-			var cfg = repo.Config;
+			using (var repo = new Repository("."))
+			{
+				var cfg = repo.Config;
 
-			switch (args.Length) {
-			case 0:
-				List(cfg);
-				break;
-			case 1:
-				ListOne(cfg, args[0]);
-				break;
-			case 2:
-				Set(cfg, args[0], args[1]);
-				break;
+				switch (args.Length) {
+				case 0:
+					List(cfg);
+					break;
+				case 1:
+					ListOne(cfg, args [0]);
+					break;
+				case 2:
+					Set(cfg, args [0], args [1]);
+					break;
+				}
 			}
 		}
 	}
