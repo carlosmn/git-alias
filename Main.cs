@@ -42,11 +42,8 @@ namespace gitalias
 
 		public static void Main (string[] args)
 		{
-			var path = Repository.Discover(".");
-			using (var repo = new Repository(path))
+			using (var cfg = new Configuration())
 			{
-				var cfg = repo.Config;
-
 				switch (args.Length) {
 				case 0:
 					List(cfg);
