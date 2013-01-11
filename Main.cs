@@ -11,19 +11,14 @@ namespace gitalias
 
 		public static void List(Configuration cfg)
 		{
-			var aliases = new List<KeyValuePair<string,string>>();
-
-			foreach (var entry in cfg.OfType<ConfigurationEntry<string>>()) {
-				if (entry.Key.StartsWith(prefix)) {
-					var pair = new KeyValuePair<string, string>(entry.Key.Substring(prefix.Length), entry.Value);
-					aliases.Add(pair);
-				}
-			}
+			var aliases = cfg.OfType<ConfigurationEntry<string>>()
+				.Where(e => e.Key.StartsWith(prefix))
+					.Select(e => new { Name = e.Key.Substring(prefix.Length), Value = e.Value }); 
 
 			// make it prettier and align the equal sign
-			var width = aliases.Select(p => p.Key.Length).Max();
-			foreach (var entry in aliases)
-				Console.WriteLine("{0} = {1}", entry.Key.PadRight(width), entry.Value);
+			var width = aliases.Select(p => p.Name.Length).Max();
+			foreach (var alias in aliases)
+				Console.WriteLine("{0} = {1}", alias.Name.PadRight(width), alias.Value);
 		}
 
 		public static void ListOne(Configuration cfg, string name)
